@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.lang.model.util.ElementScanner14;
-
 public class Main {
     public static void main(String[] args) {
        
@@ -21,9 +19,6 @@ public class Main {
         Random randomNumGenerator = new Random();
         randomNumber = randomNumGenerator.nextInt(11);
 
-        System.out.println(userInput);
-        System.out.println(randomNumber);
-
         switch (level)
         {
             case 1: levelOneEasyPlay(userInput, randomNumber);
@@ -33,43 +28,69 @@ public class Main {
             case 3: levelThreeHardPlay(userInput, randomNumber);
                     break;
         }
-
-
-
-
         input.close();
     }
     private static void levelOneEasyPlay(int guess, int random) 
     {
         if(guess > random)
         {
-            System.out.println("Your number is greater than the Computer - WINNER!!!! :^) ");
+            results(1, guess, random);
         }
         else if (guess == random)
         {
-            System.out.println("Your guess is equal to the Computer - WINNER!!!! :^) ");
+            results(2, guess, random);
         }
         else
         {
-            System.out.println("Your guess is lower than the Computer - LOSER :'( ");
+            results(3, guess, random);
             
         }
-        System.out.println("Your guess: " + guess);
-        System.out.println("Computer's NUmber: " + random);
     }
     private static void levelTwoMediumPlay(int guess, int random) 
     {
         if(guess > random)
         {
-            System.out.println("Congrats you won!!!");
+            results(1, guess, random);
+        }
+        else
+        {
+            results(3, guess, random);
         }
 
     }
     private static void levelThreeHardPlay(int guess, int random) 
     {
-        if(guess > random)
+        if(guess == random)
         {
-            System.out.println("Congrats you won!!!");
+            results(5, guess, random);
+        }
+        else
+        {
+            results(4, guess, random);
         }
     }
+    private static void results(int message, int guess, int random)
+    {
+        switch (message)
+        {
+            case 1:
+                System.out.println("Your number is greater than the Computer - WINNER!!!! :^) ");
+                break;
+            case 2:
+                System.out.println("Your guess is equal to the Computer - WINNER!!!! :^) ");
+                break;
+            case 3:
+                System.out.println("Your guess is lower than the Computer - LOSER :'( ");
+                break;
+            case 4:
+                System.out.println("Your guess is not equal to the Computer - LOSER :'( ");
+                break;
+            case 5:
+                System.out.println("Your guess equal to the Computer - WINNER!!!!! :'( ");
+                break;
+        }
+        System.out.println("Your guess: " + guess);
+        System.out.println("Computer's NUmber: " + random);
+    }
+
 }
