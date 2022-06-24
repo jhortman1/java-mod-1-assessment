@@ -7,17 +7,50 @@ public class Main {
         int userInput;
         int randomNumber;
         Scanner input = new Scanner(System.in);
+        String replay = "";
 
         System.out.println("Welcome to the Guessing game!!!");
 
-        System.out.print("Please Choose a level by entering 1(Easy) 2(Medium) 3(Hard): ");
-        level = input.nextInt();
+        String [] rules = {"Easy: guess a number - if your guess is higher or equal (you win), if your guess is lower (computer wins).",
+        "Medium: guess a number - if your guess is strictly higher (you win), if your guess is lower or equal (computer wins).",
+        "Hard: guess a number - if your guess is equal (you win) if your guess is not egual (computer wins)."}; 
 
-        System.out.print("Please enter a value between 0 and 1: ");
-        userInput = input.nextInt();
+        do
+        {
+            System.out.print("Please Choose a level by entering 1(Easy) 2(Medium) 3(Hard): ");
+            while(!input.hasNextInt())
+            {
+                System.out.print("Invalid Value, Please enter value 1-3 to choose level: ");
+                input.next();
+            }
+            userInput = input.nextInt();
+        }
+        while(!(userInput >=1 && userInput <=3));
+
+        level = userInput;
+
+        System.out.println("");
+
+        System.out.println(rules[level-1]);
+
+        System.out.println("");
+
+        do
+        {
+            System.out.print("Please enter a value between 0 and 10: ");
+            while(!input.hasNextInt())
+            {
+                System.out.print("Invalid Value, Please enter value 1-10: ");
+                input.next();
+            }
+            userInput = input.nextInt();
+        }
+        while(!(userInput >=1 && userInput <=10));
 
         Random randomNumGenerator = new Random();
         randomNumber = randomNumGenerator.nextInt(11);
+
+        System.out.println("");
 
         switch (level)
         {
@@ -28,8 +61,14 @@ public class Main {
             case 3: levelThreeHardPlay(userInput, randomNumber);
                     break;
         }
+
+        System.out.println("");
+        
+        System.out.println("Would you like to play again? y/n: ");
+
         input.close();
     }
+
     private static void levelOneEasyPlay(int guess, int random) 
     {
         if(guess > random)
@@ -62,7 +101,7 @@ public class Main {
     {
         if(guess == random)
         {
-            results(5, guess, random);
+            results(2, guess, random);
         }
         else
         {
@@ -80,13 +119,10 @@ public class Main {
                 System.out.println("Your guess is equal to the Computer - WINNER!!!! :^) ");
                 break;
             case 3:
-                System.out.println("Your guess is lower than the Computer - LOSER :'( ");
+                System.out.println("Your guess is lower or equal to the Computer - LOSER :'( Computer Wins");
                 break;
             case 4:
-                System.out.println("Your guess is not equal to the Computer - LOSER :'( ");
-                break;
-            case 5:
-                System.out.println("Your guess equal to the Computer - WINNER!!!!! :'( ");
+                System.out.println("Your guess is not equal to the Computer - LOSER :'( Computer Wins");
                 break;
         }
         System.out.println("Your guess: " + guess);
