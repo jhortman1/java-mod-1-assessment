@@ -7,7 +7,8 @@ public class Main {
         int userInput;
         int randomNumber;
         Scanner input = new Scanner(System.in);
-        String replay = "";
+        boolean replayFlag = false;
+        String replay;
 
         System.out.println("Welcome to the Guessing game!!!");
 
@@ -17,54 +18,72 @@ public class Main {
 
         do
         {
-            System.out.print("Please Choose a level by entering 1(Easy) 2(Medium) 3(Hard): ");
-            while(!input.hasNextInt())
+            do
             {
-                System.out.print("Invalid Value, Please enter value 1-3 to choose level: ");
-                input.next();
+                System.out.print("Please Choose a level by entering 1(Easy) 2(Medium) 3(Hard): ");
+                while(!input.hasNextInt())
+                {
+                    System.out.print("Invalid Value, Please enter value 1-3 to choose level: ");
+                    input.next();
+                }
+                userInput = input.nextInt();
             }
-            userInput = input.nextInt();
-        }
-        while(!(userInput >=1 && userInput <=3));
-
-        level = userInput;
-
-        System.out.println("");
-
-        System.out.println(rules[level-1]);
-
-        System.out.println("");
-
-        do
-        {
-            System.out.print("Please enter a value between 0 and 10: ");
-            while(!input.hasNextInt())
+            while(!(userInput >=1 && userInput <=3));
+    
+            level = userInput;
+    
+            System.out.println("");
+    
+            System.out.println(rules[level-1]);
+    
+            System.out.println("");
+    
+            do
             {
-                System.out.print("Invalid Value, Please enter value 1-10: ");
-                input.next();
+                System.out.print("Please enter a value between 0 and 10: ");
+                while(!input.hasNextInt())
+                {
+                    System.out.print("Invalid Value, Please enter value 0-10: ");
+                    input.next();
+                }
+                userInput = input.nextInt();
             }
-            userInput = input.nextInt();
-        }
-        while(!(userInput >=1 && userInput <=10));
+            while(!(userInput >=0 && userInput <=10));
+    
+            Random randomNumGenerator = new Random();
+            randomNumber = randomNumGenerator.nextInt(11);
+    
+            System.out.println("");
+    
+            switch (level)
+            {
+                case 1: levelOneEasyPlay(userInput, randomNumber);
+                        break;
+                case 2: levelTwoMediumPlay(userInput, randomNumber);
+                        break;
+                case 3: levelThreeHardPlay(userInput, randomNumber);
+                        break;
+            }
+    
+            System.out.println("");
+    
+            System.out.print("Would you like to play again? y/n: ");
 
-        Random randomNumGenerator = new Random();
-        randomNumber = randomNumGenerator.nextInt(11);
+            replay = input.next();
+
+            while(!(replay.equalsIgnoreCase("y") || replay.equalsIgnoreCase("n")))
+            {
+                System.out.print("Please enter y for yes or n for no: ");
+                replay = input.nextLine();
+            }
+
+            if(replay.equalsIgnoreCase("y")) replayFlag = true;
+            else replayFlag = false;
+        }while(replayFlag);
+
 
         System.out.println("");
-
-        switch (level)
-        {
-            case 1: levelOneEasyPlay(userInput, randomNumber);
-                    break;
-            case 2: levelTwoMediumPlay(userInput, randomNumber);
-                    break;
-            case 3: levelThreeHardPlay(userInput, randomNumber);
-                    break;
-        }
-
-        System.out.println("");
-        
-        System.out.println("Would you like to play again? y/n: ");
+        System.out.println("Thanks for playing! Have a great Day!");
 
         input.close();
     }
