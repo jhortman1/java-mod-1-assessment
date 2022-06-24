@@ -44,8 +44,7 @@ public class Main {
                 userInput = input.nextInt();
             } while (!(userInput >= 0 && userInput <= 10));
 
-            Random randomNumGenerator = new Random();
-            randomNumber = randomNumGenerator.nextInt(11);
+            randomNumber = generateRandomNumber();
 
             System.out.println("");
 
@@ -82,6 +81,12 @@ public class Main {
         System.out.println("Thanks for playing! Have a great Day!");
 
         input.close();
+    }
+
+    private static int generateRandomNumber() {
+        Random randomNumGenerator = new Random();
+        int rand = randomNumGenerator.nextInt(11);
+        return rand;
     }
 
     private static void levelOneEasyPlay(int guess, int random) {
